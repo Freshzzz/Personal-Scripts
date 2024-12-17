@@ -1,15 +1,19 @@
 import tkinter as tk
 from tkinter import ttk
+from tkinter import messagebox
 import sv_ttk
 import os
 import yt_dlp
 
 
-
-
 def submit(link_entry):
     entered_link = link_entry.get()
+    
+    if not entered_link.strip():
+        messagebox.showerror("Error", "Please enter a valid Youtube Link")
+        return
 
+    # File Settings
     ydl_opts = {
         'format': 'bestaudio/best',
         'postprocessors':[{
@@ -21,8 +25,18 @@ def submit(link_entry):
             'ffmpeg_location': r'E:\Config\ffmpeg-master-latest-win64-gpl\bin',
         }
     
-    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([entered_link])
+    try:
+        # Downloads & Extracts the audio from a youtube video and converts it to a MP3 file
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([entered_link])
+            messagebox.showinfo("Finished", "Your MP3 has finished downloading")
+            
+    except yt_dlp.utils.DownloadError as e:
+        messagebox.showerror("Error", f"Failed to Download: {str(e)}")
+        
+    except Exception as e:
+        messagebox.showerror("Error", "Unknown Error Has Occured")
+    
 
 # Exits the program completely
 def destroy_program(youtube_window):
@@ -37,6 +51,7 @@ def main_menu(youtube_window):
     subprocess.Popen(["python", "mainMenu.py"])
     
 
+# Splits the window into a certain amount of rows and columns
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=1)
     window.grid_rowconfigure(1, weight=1)
