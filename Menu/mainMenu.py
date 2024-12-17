@@ -43,11 +43,18 @@ def third_script():
     threading.Thread(target=run_script, daemon=True).start()
         
 
+def first_config(window):
+    window.withdraw()
+    
+    import subprocess
+    subprocess.Popen(["python", "sc1_config.py"])
+
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=0)
     window.grid_rowconfigure(1, weight=1)
     window.grid_rowconfigure(2, weight=1)
-    window.grid_rowconfigure(3, weight=0)
+    window.grid_rowconfigure(3, weight=1)
+    window.grid_rowconfigure(4, weight=0)
     
     window.grid_columnconfigure(0, weight=1)
     window.grid_columnconfigure(1, weight=0) # Has 0 weight, when window expands, the buttons are fixed in the middle
@@ -98,8 +105,13 @@ def main_menu():
     button8 = ttk.Button(window, text="2nd Script", command=second_script, width=25).grid(row=2, column=1)
     button9 = ttk.Button(window, text="3rd Script", command=third_script, width=25).grid(row=2, column=2)
     
+    button10 = ttk.Button(window, text="Script 1 Config", command=lambda: first_config(window),
+                          width=25).grid(row=3, column=0)
+    button11 = ttk.Button(window, text="Script 2 Config", width=25).grid(row=3, column=1)
+    button12 = ttk.Button(window, text="Script 3 Config", width=25).grid(row=3, column=2)
+    
     exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)
-                            , width=10).grid(row=3, column=1, padx=10, pady=20)
+                            , width=10).grid(row=4, column=1, padx=10, pady=20)
 
     window.mainloop()
     
