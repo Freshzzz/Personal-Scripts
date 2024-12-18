@@ -4,6 +4,28 @@ import sv_ttk
 import os
 import subprocess
 import threading
+import yaml
+from tkinter import messagebox
+import ruamel.yaml
+
+
+def submit(name_start, name_end, dob_start, address_start, address_end, doc_path):
+    data = {
+        'name_start': name_start,
+        'name_end': name_end,
+        'dob_start': dob_start,
+        'address_start': address_start,
+        'address_end': address_end,
+        'doc_path': doc_path
+        }
+    
+    yaml = ruamel.yaml.YAML()
+    yaml.indent(mapping=4, sequence=6, offset=4)
+    
+    with open('E:\Studijos\Praktika\Script_1\config.yml', 'w', encoding='utf-8') as f:
+        yaml.dump(data, f)
+        
+    messagebox.showinfo('Finished', 'Settings have been updated')
 
 
 def grid_placement(window):
@@ -23,28 +45,30 @@ def grid_placement(window):
     
     doc_path = tk.StringVar()
     
-    name_start_label = tk.Label(window, text="Name starts after", font=("Arial", 16)).grid(row=0, column=0, sticky="s")
-    name_start_entry1 = tk.Entry(window, textvariable = ns_one, font=("Arial", 16, 'normal')).grid(row=1, column=0)
-    name_start_entry2 = tk.Entry(window, textvariable = ns_two, font=("Arial", 16, 'normal')).grid(row=2, column=0)
-    name_start_entry3 = tk.Entry(window, textvariable = ns_three, font=("Arial", 16, 'normal')).grid(row=3, column=0)
+    tk.Label(window, text="Name starts after", font=("Arial", 16)).grid(row=0, column=0, sticky="s")
+    tk.Entry(window, textvariable = ns_one, font=("Arial", 16, 'normal')).grid(row=1, column=0)
+    tk.Entry(window, textvariable = ns_two, font=("Arial", 16, 'normal')).grid(row=2, column=0)
+    tk.Entry(window, textvariable = ns_three, font=("Arial", 16, 'normal')).grid(row=3, column=0)
     
-    name_end_label = tk.Label(window, text="Name ends before", font=("Arial", 16)).grid(row=0, column=1, sticky="s")
-    name_end_entry1 = tk.Entry(window, textvariable = nd_one, font=("Arial", 16)).grid(row=1, column=1)
-    name_end_entry2 = tk.Entry(window, textvariable = nd_two, font=("Arial", 16)).grid(row=2, column=1)
-    name_end_entry3 = tk.Entry(window, textvariable = nd_three, font=("Arial", 16)).grid(row=3, column=1)
+    tk.Label(window, text="Name ends before", font=("Arial", 16)).grid(row=0, column=1, sticky="s")
+    tk.Entry(window, textvariable = nd_one, font=("Arial", 16)).grid(row=1, column=1)
+    tk.Entry(window, textvariable = nd_two, font=("Arial", 16)).grid(row=2, column=1)
+    tk.Entry(window, textvariable = nd_three, font=("Arial", 16)).grid(row=3, column=1)
     
-    db_start_label = tk.Label(window, text="DOB starts after", font=("Arial", 16)).grid(row=0, column=2, sticky="s")
-    db_start_entry = tk.Entry(window, textvariable = dbs, font=("Arial", 16)).grid(row=1, column=2)
+    tk.Label(window, text="DOB starts after", font=("Arial", 16)).grid(row=0, column=2, sticky="s")
+    tk.Entry(window, textvariable = dbs, font=("Arial", 16)).grid(row=1, column=2)
     
-    add_start_label = tk.Label(window, text="Address starts after", font=("Arial", 16)).grid(row=0, column=3, sticky="s")
-    add_start_entry = tk.Entry(window, textvariable = ads, font=("Arial", 16)).grid(row=1, column=3)
+    tk.Label(window, text="Address starts after", font=("Arial", 16)).grid(row=0, column=3, sticky="s")
+    tk.Entry(window, textvariable = ads, font=("Arial", 16)).grid(row=1, column=3)
     
-    add_end_label = tk.Label(window, text="Address ends before", font=("Arial", 16)).grid(row=0, column=4, sticky='s')
-    add_end_entry1 = tk.Entry(window, textvariable = add_one, font=("Arial", 16)).grid(row=1, column=4)
-    add_end_entry2 = tk.Entry(window, textvariable = add_two, font=("Arial", 16)).grid(row=2, column=4)
+    tk.Label(window, text="Address ends before", font=("Arial", 16)).grid(row=0, column=4, sticky='s')
+    tk.Entry(window, textvariable = add_one, font=("Arial", 16)).grid(row=1, column=4)
+    tk.Entry(window, textvariable = add_two, font=("Arial", 16)).grid(row=2, column=4)
     
-    doc_path_label = tk.Label(window, text="Document Path", font=("Arial", 16)).grid(row=0, column=5, sticky='s')
-    doc_path_entry = tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=1, column=5)
+    tk.Label(window, text="Document Path", font=("Arial", 16)).grid(row=0, column=5, sticky='s')
+    tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=1, column=5)
+    
+    return ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path
     
 
 def main_menu(window):
@@ -84,11 +108,18 @@ def start():
                     padding=(0, 15))
     
     
-    grid_placement(window)
+    ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path = grid_placement(window)
     
     backButton = ttk.Button(window, text="Back To Main", command=lambda: main_menu(window),
                             width=10).grid(row=4, column=2, padx=10, pady=20, sticky="ew")
-    submitButton = ttk.Button(window, text="Submit", width=10).grid(row=4, column=3, padx=10, pady=20, sticky="ew")
+    submitButton = ttk.Button(window, text="Submit", width=10, command=lambda: submit(
+        [ns_one.get(), ns_two.get(), ns_three.get()],
+        [nd_one.get(), nd_two.get(), nd_three.get()],
+        dbs.get(),
+        ads.get(),
+        [add_one.get(), add_two.get()],
+        doc_path.get()
+        )).grid(row=4, column=3, padx=10, pady=20, sticky="ew")
     
     
     window.mainloop()
