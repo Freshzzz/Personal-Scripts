@@ -71,11 +71,10 @@ def grid_placement(window):
     return ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path
     
 
-def main_menu(window):
-    window.destroy()
+def start_main_menu(window):
     
-    import subprocess
-    subprocess.Popen(["python", "mainMenu.py"])
+    from mainMenu import main_menu
+    main_menu(window)
 
 
 def configure_grid(window):
@@ -93,12 +92,13 @@ def configure_grid(window):
     window.grid_columnconfigure(5, weight=1)
 
 
-def start():
-    window = tk.Tk()
-    window.title("Script 1 Config")
-    window.geometry("1280x720")
-    sv_ttk.use_dark_theme()
+def config(window):
     
+    for widget in window.winfo_children():
+        widget.destroy()
+        
+    window.title("Script 1 Config")
+    window.geometry("1280x720")  
     configure_grid(window)
     
     style=ttk.Style()
@@ -110,7 +110,7 @@ def start():
     
     ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path = grid_placement(window)
     
-    backButton = ttk.Button(window, text="Back To Main", command=lambda: main_menu(window),
+    backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window),
                             width=10).grid(row=4, column=2, padx=10, pady=20, sticky="ew")
     submitButton = ttk.Button(window, text="Submit", width=10, command=lambda: submit(
         [ns_one.get(), ns_two.get(), ns_three.get()],
@@ -125,6 +125,4 @@ def start():
     window.mainloop()
     
 
-if __name__ == "__main__":
-    start()
 

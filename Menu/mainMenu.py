@@ -47,10 +47,10 @@ def third_script():
         
 
 def first_config(window):
-    window.withdraw()
     
-    import subprocess
-    subprocess.Popen(["python", "sc1_config.py"])
+    from sc1_config import config
+    config(window)
+    
 
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=0)
