@@ -39,16 +39,15 @@ def submit(link_entry):
     
 
 # Exits the program completely
-def destroy_program(youtube_window):
-    youtube_window.destroy()
+def destroy_program(window):
+    window.destroy()
     
 
 # Exits the current window, and returns the user to the main menu
-def main_menu(youtube_window):
-    youtube_window.destroy()
+def start_main_menu(window):
     
-    import subprocess
-    subprocess.Popen(["python", "mainMenu.py"])
+    import mainMenu
+    mainMenu.main_menu(window)
     
 
 # Splits the window into a certain amount of rows and columns
@@ -64,24 +63,24 @@ def configure_grid(window):
     window.grid_columnconfigure(4, weight=1)
 
 
-def start_youtube_converter():
+def youtube_converter(window):
     
     
-    # Window Configuration
-    youtube_window = tk.Tk()
-    youtube_window.title("Youtube Video To MP3 Converter")
-    youtube_window.geometry("1080x320")
-    sv_ttk.use_dark_theme()
+    for widget in window.winfo_children():
+        widget.destroy()
+        
+    window.title("Youtube To MP3 Converter")
+    window.geometry("1080x320")
     
-    configure_grid(youtube_window)
+    configure_grid(window)
     
     
     # Button Implementation/Configuration
-    exitButton = ttk.Button(youtube_window, text="Exit", command=lambda: destroy_program(youtube_window)
+    exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)
                             , width=20).grid(row=2, column=1, padx=10, pady=20)
-    backButton = ttk.Button(youtube_window, text="Back To Main", command=lambda: main_menu(youtube_window)
+    backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window)
                         , width=20).grid(row=2, column=3, padx=10, pady=20)
-    submitButton = ttk.Button(youtube_window, text="Submit", command=lambda: submit(link_entry),
+    submitButton = ttk.Button(window, text="Submit", command=lambda: submit(link_entry),
                               width=20).grid(row=1, column=3, padx=10, pady=20)
     
     
@@ -92,16 +91,12 @@ def start_youtube_converter():
     
     
     youtube_link = tk.StringVar()
-    link_label = tk.Label(youtube_window, text="Enter Youtube link", font=("Arial", 16))
-    link_entry = tk.Entry(youtube_window, textvariable = youtube_link, font=("Arial", 16, 'normal'))
+    link_label = tk.Label(window, text="Enter Youtube link", font=("Arial", 16))
+    link_entry = tk.Entry(window, textvariable = youtube_link, font=("Arial", 16, 'normal'))
     
     link_label.grid(row=1, column=1)
     link_entry.grid(row=1, column=2)
     
     
-    youtube_window.mainloop()
+    window.mainloop()
 
-
-
-if __name__ == "__main__":
-    start_youtube_converter()

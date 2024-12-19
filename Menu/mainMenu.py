@@ -5,15 +5,18 @@ import os
 import subprocess
 import threading
 
+# Ar galima pernaudot tapati window
+
 
 script_base_path = r"E:\Studijos\Praktika"
 
 
+# Run Script -> Config -> Config does not open or opens late idk anymore
 def first_script():
     def run_script():
         script_1_path = os.path.abspath(os.path.join(script_base_path, "Script_1\SC1.bat"))
         script_1_dir = os.path.dirname(script_1_path)
-        subprocess.run(
+        subprocess.Popen(
             [script_1_path],
             cwd=script_1_dir
         )
@@ -62,11 +65,10 @@ def configure_grid(window):
 
 
 # Opens a new window where the user can convert their youtube link to a mp3 file
-def youtube_converter(window):
-    window.withdraw()
+def start_youtube_converter(window):
     
-    import subprocess
-    subprocess.Popen(["python", "youtube_converter.py"])
+    from youtube_converter import youtube_converter
+    youtube_converter(window)
     
 
 # Exits the program completely
@@ -74,13 +76,16 @@ def destroy_program(window):
     window.destroy()
     
 
-def main_menu():
-    # Creates & Opens the Main Menu Window
-    window = tk.Tk()
+def main_menu(window=None):
+    if not window:
+        window = tk.Tk()
+        
+    for widget in window.winfo_children():
+        widget.destroy()
+    
     window.title("Main Menu")
     window.geometry("1280x1080")
     sv_ttk.use_dark_theme()
-    
     configure_grid(window)
     
     # Button Design Configuration
@@ -92,7 +97,7 @@ def main_menu():
     
 
     # Button Implementation
-    button = ttk.Button(window, text="Youtube Converter", command=lambda: youtube_converter(window),
+    button = ttk.Button(window, text="MP3 Converter", command=lambda: start_youtube_converter(window),
                         width=25).grid(row=0, column=0, pady=100)
     button2 = ttk.Button(window, text="2", width=25).grid(row=0, column=1)
     button3 = ttk.Button(window, text="3", width=25).grid(row=0, column=2)
@@ -119,6 +124,4 @@ def main_menu():
 
 if __name__ == "__main__":
     main_menu()
-
-    
 
