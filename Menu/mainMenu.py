@@ -4,6 +4,7 @@ import sv_ttk
 import os
 import subprocess
 import threading
+from tkinter import messagebox
 
 # Ar galima pernaudot tapati window
 
@@ -21,6 +22,7 @@ def first_script():
             cwd=script_1_dir
         )
     threading.Thread(target=run_script, daemon=True).start()
+    messagebox.showinfo("Printed", "Output.txt file has been generated")
 
 
 def second_script():
@@ -49,6 +51,11 @@ def third_script():
 def first_config(window):
     
     from sc1_config import config
+    config(window)
+    
+
+def second_config(window):
+    from sc2_config import config
     config(window)
     
 
@@ -112,7 +119,8 @@ def main_menu(window=None):
     
     button10 = ttk.Button(window, text="Script 1 Config", command=lambda: first_config(window),
                           width=25).grid(row=3, column=0)
-    button11 = ttk.Button(window, text="Script 2 Config", width=25).grid(row=3, column=1)
+    button11 = ttk.Button(window, text="Script 2 Config", command=lambda: second_config(window),
+                          width=25).grid(row=3, column=1)
     button12 = ttk.Button(window, text="Script 3 Config", width=25).grid(row=3, column=2)
     
     exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)

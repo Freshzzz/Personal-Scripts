@@ -1,9 +1,5 @@
 import tkinter as tk
 from tkinter import ttk
-import sv_ttk
-import os
-import subprocess
-import threading
 import yaml
 from tkinter import messagebox
 import ruamel.yaml
