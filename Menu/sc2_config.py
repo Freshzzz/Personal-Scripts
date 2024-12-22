@@ -103,7 +103,11 @@ def configure_grid(window):
     
 
 
-def config(window):
+def config(window=None):
+    
+    print("Success")
+    if not window:
+        window = tk.Tk()
     
     for widget in window.winfo_children():
         widget.destroy()

@@ -6,13 +6,10 @@ import subprocess
 import threading
 from tkinter import messagebox
 
-# Ar galima pernaudot tapati window
-
 
 script_base_path = r"E:\Studijos\Praktika"
 
 
-# Run Script -> Config -> Config does not open or opens late idk anymore
 def first_script():
     def run_script():
         script_1_path = os.path.abspath(os.path.join(script_base_path, "Script_1\SC1.bat"))
@@ -113,13 +110,13 @@ def main_menu(window=None):
     button5 = ttk.Button(window, text="5", width=25).grid(row=1, column=1)
     button6 = ttk.Button(window, text="6", width=25).grid(row=1, column=2)
     
-    button7 = ttk.Button(window, text="1st Script", command=first_script, width=25).grid(row=2, column=0)
-    button8 = ttk.Button(window, text="2nd Script", command=second_script, width=25).grid(row=2, column=1)
-    button9 = ttk.Button(window, text="3rd Script", command=third_script, width=25).grid(row=2, column=2)
+    button7 = ttk.Button(window, text="Script 1", command=first_script, width=25).grid(row=2, column=0)
+    button8 = ttk.Button(window, text="Script 2 - Hybrid", command=second_script, width=25).grid(row=2, column=1)
+    button9 = ttk.Button(window, text="Script 3", command=third_script, width=25).grid(row=2, column=2)
     
     button10 = ttk.Button(window, text="Script 1 Config", command=lambda: first_config(window),
                           width=25).grid(row=3, column=0)
-    button11 = ttk.Button(window, text="Script 2 Config", command=lambda: second_config(window),
+    button11 = ttk.Button(window, text="Script 2 - Manual", command=lambda: second_config(window),
                           width=25).grid(row=3, column=1)
     button12 = ttk.Button(window, text="Script 3 Config", width=25).grid(row=3, column=2)
     
