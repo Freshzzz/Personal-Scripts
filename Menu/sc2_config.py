@@ -105,7 +105,6 @@ def configure_grid(window):
 
 def config(window=None):
     
-    print("Success")
     if not window:
         window = tk.Tk()
     

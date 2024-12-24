@@ -3,6 +3,15 @@ from tkinter import ttk
 import yaml
 from tkinter import messagebox
 import ruamel.yaml
+from tkinter import filedialog
+
+def browse_file(doc_path):
+    path = filedialog.askopenfilename(
+        title = "Select a File",
+        filetypes=[("Word Documents", "*.docx"), ("All Files", "*.*")]
+    )
+    
+    doc_path.set(path)
 
 
 def submit(name_start, name_end, dob_start, address_start, address_end, doc_path):
@@ -62,7 +71,8 @@ def grid_placement(window):
     tk.Entry(window, textvariable = add_two, font=("Arial", 16)).grid(row=2, column=4)
     
     tk.Label(window, text="Document Path", font=("Arial", 16)).grid(row=0, column=5, sticky='s')
-    tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=1, column=5)
+    #tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=1, column=5)
+    ttk.Button(window, text="Browse File", command=lambda: browse_file(doc_path)).grid(row=1, column=5)
     
     return ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path
     
@@ -94,7 +104,7 @@ def config(window):
         widget.destroy()
         
     window.title("Script 1 Config")
-    window.geometry("1280x720")  
+    window.geometry("1440x720")  
     configure_grid(window)
     
     style=ttk.Style()
