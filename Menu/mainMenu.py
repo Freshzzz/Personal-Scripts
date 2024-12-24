@@ -55,6 +55,11 @@ def second_config(window):
     from sc2_config import config
     config(window)
     
+    
+def start_view_pdf(window):
+    from view_pdf import config
+    config(window)
+    
 
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=0)
@@ -118,7 +123,7 @@ def main_menu(window=None):
                           width=25).grid(row=3, column=0)
     button11 = ttk.Button(window, text="Script 2 - Manual", command=lambda: second_config(window),
                           width=25).grid(row=3, column=1)
-    button12 = ttk.Button(window, text="Script 3 Config", width=25).grid(row=3, column=2)
+    button12 = ttk.Button(window, text="View Pdf", command=lambda: start_view_pdf(window), width=25).grid(row=3, column=2)
     
     exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)
                             , width=10).grid(row=4, column=1, padx=10, pady=20)
