@@ -57,7 +57,7 @@ def second_config(window):
     
     
 def start_view_pdf(window):
-    from view_pdf import config
+    from view_pdf2 import config
     config(window)
     
 
