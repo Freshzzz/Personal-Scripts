@@ -26,21 +26,22 @@ def browse_file(window, doc_path, pdf_container):
 
     if path:
         doc_path.set(path)
+        
+        container_width = pdf_container.winfo_width()
+        container_height = pdf_container.winfo_height()
 
         # Display the PDF in the `pdf_container`
         v1 = pdf.ShowPdf()
-        v2 = v1.pdf_view(pdf_container, pdf_location=path, width=80, height=50)
+        v2 = v1.pdf_view(pdf_container, pdf_location=path, width=77, height=50)
         v2.pack(fill="both", expand=True)
 
 
 def grid_placement(window):
     doc_path = tk.StringVar()
     
-    pdf_container = tk.Frame(window, bg="gray", width=1600, height=1000)
-    pdf_container.place(x=100, y=50)  # Place the PDF container
+    pdf_container = tk.Frame(window, width=1600, height=1000)
+    pdf_container.place(x=1050, y=120)  # Place the PDF container
     
-    ttk.Button(window, text="⬆").place(x=2240, y=100)
-    ttk.Button(window, text="⬇").place(x=2240, y=200)
     
     ttk.Button(window, text="Exit", command=lambda: destroy_program(window)).place(x=600, y=1200)
     ttk.Button(window, text="Back", command=lambda: start_main_menu(window)).place(x=1300, y=1200)
