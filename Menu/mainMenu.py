@@ -108,7 +108,7 @@ def main_menu(window=None):
     # Button Implementation
     button = ttk.Button(window, text="MP3 Converter", command=lambda: start_youtube_converter(window),
                         width=25).grid(row=0, column=0, pady=100)
-    button2 = ttk.Button(window, text="2", width=25).grid(row=0, column=1)
+    button2 = ttk.Button(window, text="Typing Speed Tester [WIP]", width=25).grid(row=0, column=1)
     button3 = ttk.Button(window, text="3", width=25).grid(row=0, column=2)
     
     button4 = ttk.Button(window, text="4", width=25).grid(row=1, column=0)
