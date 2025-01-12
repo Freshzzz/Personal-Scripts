@@ -9,6 +9,7 @@ import os
 from tkinter import filedialog
 
 
+# Lets the user select which Word file they want to use
 def browse_file(doc_path):
     path = filedialog.askopenfilename(
         title = "Select a File",
@@ -18,12 +19,14 @@ def browse_file(doc_path):
     doc_path.set(path)
 
 
+# Changes the placeholder word with the replacement word the user wrote.
 def change(doc, placeholder, replacement_word):
     for paragraph in doc.paragraphs:
         if placeholder in paragraph.text:
             paragraph.text = paragraph.text.replace(placeholder, replacement_word)
 
-            
+
+# Saves the edited text to the .docx file & converted to a .pdf file
 def write(doc, name):
     doc.save(r"E:\Python\Menu\Updated Konf Sutartis.docx")
     convert(r"E:\Python\Menu\Updated Konf Sutartis.docx", fr"E:\Python\Menu\{name}.pdf")
@@ -47,12 +50,14 @@ def submit(name, dob, address, tel_nr, ct_nr, ct_date, doc_path):
     messagebox.showinfo("Finished", "Your .pdf file has been generated")
 
 
+# Launches the main menu window
 def start_main_menu(window):
     
     from mainMenu import main_menu
     main_menu(window)
 
 
+# Splits the window into certain amounts of rows & columns. Places the field boxes, labels & buttons.
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=1)
     window.grid_rowconfigure(1, weight=1)
@@ -94,7 +99,6 @@ def configure_grid(window):
     
     doc_path = tk.StringVar()
     tk.Label(window, text="Document Path", font=("Arial", 16)).grid(row=6, column=0)
-    #tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=6, column=1)
     
     ttk.Button(window, text="Browse File", command=lambda: browse_file(doc_path)).grid(row=6, column=1)
     
@@ -102,19 +106,23 @@ def configure_grid(window):
     return name, dob, address, tel_nr, ct_nr, ct_date, doc_path
     
 
-
+# Main 2nd script function
 def config(window=None):
     
+    # If a window does not get passed it creates its own
     if not window:
         window = tk.Tk()
     
+    # If a window does get passed, it destroys the previous windows widgets.
     for widget in window.winfo_children():
         widget.destroy()
-        
+    
+    # Sets the window name, resolution & calls the configure_grid function.
     window.title("Script 2 Config")
     window.geometry("1280x720")  
     name, dob, address, tel_nr, ct_nr, ct_date, doc_path = configure_grid(window)
     
+    # Buttons design configurationn
     style=ttk.Style()
     style.configure("TButton",
                     fg="white",

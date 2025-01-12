@@ -9,6 +9,7 @@ import yt_dlp
 def submit(link_entry):
     entered_link = link_entry.get()
     
+    # Displays an error if the user does not enter a link
     if not entered_link.strip():
         messagebox.showerror("Error", "Please enter a valid Youtube Link")
         return
@@ -30,7 +31,8 @@ def submit(link_entry):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([entered_link])
             messagebox.showinfo("Finished", "Your MP3 has finished downloading")
-            
+    
+    # Displays an error if there has been one while downloading
     except yt_dlp.utils.DownloadError as e:
         messagebox.showerror("Error", f"Failed to Download: {str(e)}")
         
@@ -63,12 +65,14 @@ def configure_grid(window):
     window.grid_columnconfigure(4, weight=1)
 
 
+# youtube_converter.py main function
 def youtube_converter(window):
     
-    
+    # Removes the previous widgets
     for widget in window.winfo_children():
         widget.destroy()
-        
+    
+    # Sets the window name & resolution
     window.title("Youtube To MP3 Converter")
     window.geometry("1080x320")
     

@@ -5,6 +5,8 @@ from tkinter import messagebox
 import ruamel.yaml
 from tkinter import filedialog
 
+
+# Function that lets the user select the file they want to use
 def browse_file(doc_path):
     path = filedialog.askopenfilename(
         title = "Select a File",
@@ -14,7 +16,9 @@ def browse_file(doc_path):
     doc_path.set(path)
 
 
+# All the data from the field boxes get printed to config.yml file
 def submit(name_start, name_end, dob_start, address_start, address_end, doc_path):
+    # Categorizes the data
     data = {
         'name_start': name_start,
         'name_end': name_end,
@@ -33,6 +37,7 @@ def submit(name_start, name_end, dob_start, address_start, address_end, doc_path
     messagebox.showinfo('Finished', 'Settings have been updated')
 
 
+# Takes all the information from the field boxes
 def grid_placement(window):
     ns_one = tk.StringVar()
     ns_two = tk.StringVar()
@@ -71,18 +76,19 @@ def grid_placement(window):
     tk.Entry(window, textvariable = add_two, font=("Arial", 16)).grid(row=2, column=4)
     
     tk.Label(window, text="Document Path", font=("Arial", 16)).grid(row=0, column=5, sticky='s')
-    #tk.Entry(window, textvariable = doc_path, font=("Arial", 16)).grid(row=1, column=5)
     ttk.Button(window, text="Browse File", command=lambda: browse_file(doc_path)).grid(row=1, column=5)
     
     return ns_one, ns_two, ns_three, nd_one, nd_two, nd_three, dbs, ads, add_one, add_two, doc_path
     
 
+# Launches the main menu window
 def start_main_menu(window):
     
     from mainMenu import main_menu
     main_menu(window)
 
 
+# Splits the current window into a certain amount of rows & columns
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=1)
     window.grid_rowconfigure(1, weight=1)
@@ -98,15 +104,20 @@ def configure_grid(window):
     window.grid_columnconfigure(5, weight=1)
 
 
+# 1st scripts main function
 def config(window):
     
+    # Destroys all the widgets in the window
     for widget in window.winfo_children():
         widget.destroy()
-        
+    
+    # Sets the window title & resolution
     window.title("Script 1 Config")
-    window.geometry("1440x720")  
+    window.geometry("1440x720")
+    
     configure_grid(window)
     
+    # Button style configuration
     style=ttk.Style()
     style.configure("TButton",
                     fg="white",

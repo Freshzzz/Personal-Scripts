@@ -11,7 +11,9 @@ from tkPDFViewer import tkPDFViewer as pdf
 script_base_path = r"E:\Studijos\Praktika"
 
 
+# Runs the 1st Script
 def first_script():
+    # Combines the base & 1st scripts paths and runs the script
     def run_script():
         script_1_path = os.path.abspath(os.path.join(script_base_path, "Script_1\SC1.bat"))
         script_1_dir = os.path.dirname(script_1_path)
@@ -21,6 +23,7 @@ def first_script():
         )
     threading.Thread(target=run_script, daemon=True).start()
     messagebox.showinfo("Printed", "Output.txt file has been generated")
+
 
 
 def second_script():
@@ -46,8 +49,10 @@ def third_script():
     threading.Thread(target=run_script, daemon=True).start()
         
 
+# Launches the main method from 1st scripts config
 def first_config(window):
     
+    # Imports sc1_config from config.py (It is in the same path)
     from sc1_config import config
     config(window)
     
@@ -67,6 +72,7 @@ def start_speed_typing(window):
     typing_main(window)
     
 
+# Configures the window into a certain amount of rows & columns
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=0)
     window.grid_rowconfigure(1, weight=1)
@@ -92,12 +98,15 @@ def destroy_program(window):
     
 
 def main_menu(window=None):
+    # If window does not exist, it creates one.
     if not window:
         window = tk.Tk()
-        
+    
+    # If the window does exist, it removes all the widgets.
     for widget in window.winfo_children():
         widget.destroy()
     
+    # Sets the window title to Main Menu & Sets the resolution to 1280x1080
     window.title("Main Menu")
     window.geometry("1280x1080")
     sv_ttk.use_dark_theme()

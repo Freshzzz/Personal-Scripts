@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkPDFViewer import tkPDFViewer as pdf
 
 
+# Splits the current window into a certain amount of rows & columns.
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=1)
     window.grid_rowconfigure(1, weight=1)
@@ -17,6 +18,7 @@ def configure_grid(window):
     window.grid_columnconfigure(4, weight=1)
     
 
+# Places the buttons in their correct positions.
 def grid_placement(window):
     exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)
                             , width=20).grid(row=2, column=1, padx=10, pady=20, sticky='s')
@@ -24,10 +26,14 @@ def grid_placement(window):
                         , width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
 
 
+# speed_typing.py main function
 def typing_main(window):
+    
+    # Removes the previous windows widgets.
     for widget in window.winfo_children():
         widget.destroy()
-        
+    
+    # Sets the window name & resolution.
     window.title("Typing Speed Tester")
     window.geometry("1080x320")
     
