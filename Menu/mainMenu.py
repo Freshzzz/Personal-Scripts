@@ -5,6 +5,7 @@ import os
 import subprocess
 import threading
 from tkinter import messagebox
+from tkPDFViewer import tkPDFViewer as pdf
 
 
 script_base_path = r"E:\Studijos\Praktika"
@@ -60,6 +61,11 @@ def start_view_pdf(window):
     from view_pdf2 import config
     config(window)
     
+    
+def start_speed_typing(window):
+    from speed_typing import typing_main
+    typing_main(window)
+    
 
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=0)
@@ -108,7 +114,7 @@ def main_menu(window=None):
     # Button Implementation
     button = ttk.Button(window, text="MP3 Converter", command=lambda: start_youtube_converter(window),
                         width=25).grid(row=0, column=0, pady=100)
-    button2 = ttk.Button(window, text="Typing Speed Tester [WIP]", width=25).grid(row=0, column=1)
+    button2 = ttk.Button(window, text="Typing Speed Tester [WIP]", command=lambda: start_speed_typing(window), width=25).grid(row=0, column=1)
     button3 = ttk.Button(window, text="3", width=25).grid(row=0, column=2)
     
     button4 = ttk.Button(window, text="4", width=25).grid(row=1, column=0)
