@@ -17,6 +17,18 @@ def configure_grid(window):
     window.grid_columnconfigure(3, weight=1)
     window.grid_columnconfigure(4, weight=1)
     
+    
+# Exits the program completely
+def destroy_program(window):
+    window.destroy()
+    
+
+# Exits the current window, and returns the user to the main menu
+def start_main_menu(window):
+    
+    import mainMenu
+    mainMenu.main_menu(window)
+    
 
 # Places the buttons in their correct positions.
 def grid_placement(window):
