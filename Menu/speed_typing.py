@@ -5,6 +5,16 @@ from tkinter import messagebox
 from tkPDFViewer import tkPDFViewer as pdf
 
 
+def read():
+    sentences_path = r'E:\Python\Menu\typing_sentences.txt'
+    
+    with open(sentences_path, 'r') as f:
+        sentence = f.readline()
+        while sentence:
+            print(sentence)
+            sentence = f.readline()
+
+
 # Splits the current window into a certain amount of rows & columns.
 def configure_grid(window):
     window.grid_rowconfigure(0, weight=1)
@@ -51,4 +61,6 @@ def typing_main(window):
     
     configure_grid(window)
     grid_placement(window)
+    
+    read()
     
