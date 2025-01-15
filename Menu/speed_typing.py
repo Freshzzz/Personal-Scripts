@@ -5,6 +5,21 @@ from tkinter import messagebox
 from tkPDFViewer import tkPDFViewer as pdf
 
 
+def submit(window, allSentences, sentence_index, typed_sentence):
+    #print(sentence_index)
+    #print(typed_sentence.get())
+    temp = typed_sentence.get()
+    
+    if(temp.strip() == allSentences[sentence_index].strip()):
+        print("Correct")
+        sentence_index += 1
+        grid_placement(window, allSentences, sentence_index)
+        #print(sentence_index)
+        #sentence_typing_entry.delete(0, END)
+    else:
+        print()
+        print(temp)
+        print(allSentences[sentence_index])
 
 def read(allSentences):
     sentences_path = r'E:\Python\Menu\typing_sentences.txt'
@@ -49,14 +64,15 @@ def start_main_menu(window):
 def grid_placement(window, allSentences, sentence_index):
     typed_sentence = tk.StringVar()
     
-    sentence_label = tk.Label(window, text=allSentences[sentence_index], font=("Arial", 16, "bold"), padx=15, pady=15)
+    sentence_label = tk.Label(window, wraplength=600, text=allSentences[sentence_index], font=("Arial", 16, "bold"), padx=15, pady=15)
     sentence_label.grid(row=0, column=2)
+    sentence_typing_entry = tk.Entry(window, textvariable = typed_sentence, font=("Arial", 16)).grid(row=1, column=2)
     
     exitButton = ttk.Button(window, text="Exit", command=lambda: destroy_program(window)
                             , width=20).grid(row=2, column=0, padx=10, pady=20, sticky='s')
     backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window)
                         , width=20).grid(row=2, column=1, padx=10, pady=20, sticky='s')
-    submit_button = ttk.Button(window, text="Submit", width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
+    submit_button = ttk.Button(window, text="Submit", command=lambda: submit(window, allSentences, sentence_index, typed_sentence), width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
 
 
 # speed_typing.py main function
@@ -72,7 +88,7 @@ def typing_main(window):
     
     # Sets the window name & resolution.
     window.title("Typing Speed Tester")
-    window.geometry("1400x450")
+    window.geometry("1600x450")
     
     configure_grid(window)
     read(allSentences)
