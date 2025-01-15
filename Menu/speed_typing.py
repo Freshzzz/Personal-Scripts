@@ -3,6 +3,7 @@ from tkinter import ttk
 import sv_ttk
 from tkinter import messagebox
 from tkPDFViewer import tkPDFViewer as pdf
+from time import time
 
 
 results = {
@@ -31,10 +32,8 @@ def read(allSentences):
         sentence = f.readline()
         while sentence:
             allSentences.append(sentence)
-            #print(sentence)
             sentence = f.readline()
             
-        #print(allSentences)
 
 
 # Splits the current window into a certain amount of rows & columns.
@@ -76,6 +75,8 @@ def grid_placement(window, allSentences, sentence_index):
     backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window)
                         , width=20).grid(row=2, column=1, padx=10, pady=20, sticky='s')
     submit_button = ttk.Button(window, text="Submit", command=lambda: submit(window, allSentences, sentence_index, typed_sentence), width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
+    
+    finish_button = ttk.Button(window, text="Finish", width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
 
 
 # speed_typing.py main function
@@ -84,6 +85,8 @@ def typing_main(window):
     allSentences: list[str] = []
     sentence_index = 0
     typed_sentence = ""
+    results['correct'] = 0
+    results['incorrect'] = 0
     
     # Removes the previous windows widgets.
     for widget in window.winfo_children():
@@ -97,8 +100,7 @@ def typing_main(window):
     read(allSentences)
     grid_placement(window, allSentences, sentence_index)
     
-    #print(allSentences)
-    #print(allSentences[sentence_index])
+    
     
     
     
