@@ -5,21 +5,24 @@ from tkinter import messagebox
 from tkPDFViewer import tkPDFViewer as pdf
 
 
+results = {
+    'correct': 0,
+    'incorrect': 0
+    }
+
+
 def submit(window, allSentences, sentence_index, typed_sentence):
-    #print(sentence_index)
-    #print(typed_sentence.get())
     temp = typed_sentence.get()
     
     if(temp.strip() == allSentences[sentence_index].strip()):
-        print("Correct")
+        results['correct'] += 1
+        print(results['correct'])
         sentence_index += 1
         grid_placement(window, allSentences, sentence_index)
-        #print(sentence_index)
-        #sentence_typing_entry.delete(0, END)
     else:
-        print()
-        print(temp)
-        print(allSentences[sentence_index])
+        results['incorrect'] += 1
+        print(results['incorrect'])
+        grid_placement(window, allSentences, sentence_index)
 
 def read(allSentences):
     sentences_path = r'E:\Python\Menu\typing_sentences.txt'
