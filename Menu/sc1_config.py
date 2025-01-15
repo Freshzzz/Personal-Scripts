@@ -129,6 +129,7 @@ def config(window):
     
     backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window),
                             width=10).grid(row=4, column=2, padx=10, pady=20, sticky="ew")
+    
     submitButton = ttk.Button(window, text="Submit", width=10, command=lambda: submit(
         [ns_one.get(), ns_two.get(), ns_three.get()],
         [nd_one.get(), nd_two.get(), nd_three.get()],
