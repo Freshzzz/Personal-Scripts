@@ -18,50 +18,43 @@ etime = None
 
 def finish(letter_count):
     global ptime
-    etime = time()
+    etime = time() # End Time
     
-    ptime = round(time_passed(stime, etime), 2)
-    speed = round(typing_speed(letter_count), 0)
     
-    #print(ptime) # Time in seconds
-    print(speed) # Words per 
+    ptime = round(time_passed(stime, etime), 2) # Elapsed Time
+    speed = round(typing_speed(letter_count), 0) # User's WPM (Words Per Minute)
+    
+    print(ptime)
+    
     
 
 def time_passed(stime, etime):
-    time = etime - stime
     
-    return time
+    return etime - stime
 
 
 def typing_speed(letter_count):
     global ptime
-    speed = (letter_count / 5) * (60 / ptime)
-    #print("WPM")
-    #print(speed)
-    #print("")
-    #print(letter_count)
-    #print(ptime)
     
-    return speed
+    return (letter_count / 5) * (60 / ptime)
 
 
 def submit(window, allSentences, sentence_index, typed_sentence, letter_count):
     temp = typed_sentence.get()
     
     if(temp.strip() == allSentences[sentence_index].strip()):
-        temp_count = len(allSentences[sentence_index])
-        #print(len(allSentences[sentence_index]))
+        temp_count = len(allSentences[sentence_index]) # Counts the number of characters
         letter_count = letter_count + temp_count
-        print(letter_count)
-        #print(temp_count)
+        
         results['correct'] += 1
-        #print(results['correct'])
         sentence_index += 1
+        
         grid_placement(window, allSentences, sentence_index, letter_count)
     else:
         results['incorrect'] += 1
-        #print(results['incorrect'])
+        
         grid_placement(window, allSentences, sentence_index, letter_count)
+        
 
 def read(allSentences):
     sentences_path = r'E:\Python\Menu\typing_sentences.txt'
@@ -141,7 +134,6 @@ def typing_main(window):
     grid_placement(window, allSentences, sentence_index, letter_count)
     
     stime = time()
-    #print(stime)
     
     
     
