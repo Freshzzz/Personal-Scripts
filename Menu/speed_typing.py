@@ -16,15 +16,15 @@ ptime = None
 etime = None
 
 
-def finish(letter_count):
+def finish(window, letter_count):
     global ptime
     etime = time() # End Time
-    
     
     ptime = round(time_passed(stime, etime), 2) # Elapsed Time
     speed = round(typing_speed(letter_count), 0) # User's WPM (Words Per Minute)
     
-    print(ptime)
+    from wpm_scoreboard import scoreboard_main
+    scoreboard_main(window)
     
     
 
@@ -107,7 +107,7 @@ def grid_placement(window, allSentences, sentence_index, letter_count):
                         , width=20).grid(row=2, column=1, padx=10, pady=20, sticky='s')
     submit_button = ttk.Button(window, text="Submit", command=lambda: submit(window, allSentences, sentence_index, typed_sentence, letter_count), width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
     
-    finish_button = ttk.Button(window, text="Finish", command=lambda: finish(letter_count), width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
+    finish_button = ttk.Button(window, text="Finish", command=lambda: finish(window, letter_count), width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
 
 
 # speed_typing.py main function
@@ -134,6 +134,7 @@ def typing_main(window):
     grid_placement(window, allSentences, sentence_index, letter_count)
     
     stime = time()
+    
     
     
     
