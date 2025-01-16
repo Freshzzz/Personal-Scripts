@@ -11,19 +11,57 @@ results = {
     'incorrect': 0
     }
 
+stime = None
+ptime = None
+etime = None
 
-def submit(window, allSentences, sentence_index, typed_sentence):
+
+def finish(letter_count):
+    global ptime
+    etime = time()
+    
+    ptime = round(time_passed(stime, etime), 2)
+    speed = round(typing_speed(letter_count), 0)
+    
+    #print(ptime) # Time in seconds
+    print(speed) # Words per 
+    
+
+def time_passed(stime, etime):
+    time = etime - stime
+    
+    return time
+
+
+def typing_speed(letter_count):
+    global ptime
+    speed = (letter_count / 5) * (60 / ptime)
+    #print("WPM")
+    #print(speed)
+    #print("")
+    #print(letter_count)
+    #print(ptime)
+    
+    return speed
+
+
+def submit(window, allSentences, sentence_index, typed_sentence, letter_count):
     temp = typed_sentence.get()
     
     if(temp.strip() == allSentences[sentence_index].strip()):
+        temp_count = len(allSentences[sentence_index])
+        #print(len(allSentences[sentence_index]))
+        letter_count = letter_count + temp_count
+        print(letter_count)
+        #print(temp_count)
         results['correct'] += 1
-        print(results['correct'])
+        #print(results['correct'])
         sentence_index += 1
-        grid_placement(window, allSentences, sentence_index)
+        grid_placement(window, allSentences, sentence_index, letter_count)
     else:
         results['incorrect'] += 1
-        print(results['incorrect'])
-        grid_placement(window, allSentences, sentence_index)
+        #print(results['incorrect'])
+        grid_placement(window, allSentences, sentence_index, letter_count)
 
 def read(allSentences):
     sentences_path = r'E:\Python\Menu\typing_sentences.txt'
@@ -63,7 +101,7 @@ def start_main_menu(window):
     
 
 # Places the buttons in their correct positions.
-def grid_placement(window, allSentences, sentence_index):
+def grid_placement(window, allSentences, sentence_index, letter_count):
     typed_sentence = tk.StringVar()
     
     sentence_label = tk.Label(window, wraplength=600, text=allSentences[sentence_index], font=("Arial", 16, "bold"), padx=15, pady=15)
@@ -74,16 +112,18 @@ def grid_placement(window, allSentences, sentence_index):
                             , width=20).grid(row=2, column=0, padx=10, pady=20, sticky='s')
     backButton = ttk.Button(window, text="Back To Main", command=lambda: start_main_menu(window)
                         , width=20).grid(row=2, column=1, padx=10, pady=20, sticky='s')
-    submit_button = ttk.Button(window, text="Submit", command=lambda: submit(window, allSentences, sentence_index, typed_sentence), width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
+    submit_button = ttk.Button(window, text="Submit", command=lambda: submit(window, allSentences, sentence_index, typed_sentence, letter_count), width=20).grid(row=2, column=2, padx=10, pady=20, sticky='s')
     
-    finish_button = ttk.Button(window, text="Finish", width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
+    finish_button = ttk.Button(window, text="Finish", command=lambda: finish(letter_count), width=20).grid(row=2, column=3, padx=10, pady=20, sticky='s')
 
 
 # speed_typing.py main function
 def typing_main(window):
     
+    global stime
     allSentences: list[str] = []
     sentence_index = 0
+    letter_count = 0
     typed_sentence = ""
     results['correct'] = 0
     results['incorrect'] = 0
@@ -98,7 +138,10 @@ def typing_main(window):
     
     configure_grid(window)
     read(allSentences)
-    grid_placement(window, allSentences, sentence_index)
+    grid_placement(window, allSentences, sentence_index, letter_count)
+    
+    stime = time()
+    #print(stime)
     
     
     
